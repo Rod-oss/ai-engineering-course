@@ -1,6 +1,8 @@
 {
   "name": "AI Engineering (Python 3.12)",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "bash .devcontainer/setup.sh && bash .devcontainer/start-ollama.sh",
+  "postStartCommand": "bash .devcontainer/start-ollama.sh",
   "customizations": {
     "vscode": {
       "extensions": ["ms-python.python"]
