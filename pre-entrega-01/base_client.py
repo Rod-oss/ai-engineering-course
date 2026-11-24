@@ -19,6 +19,16 @@ class LLMClientError(Exception):
         super().__init__(message)
         self.retryable = retryable
 
+def api_error_message(exc: Exception) -> str:
+    """Extrae el mensaje legible que el proveedor envía en el cuerpo del error."""
+    body = getattr(exc, "body", None)
+    if isinstance(body, list) and body:
+        body = body[0]
+    if isinstance(body, dict):
+        detail = body.get("error", body)
+        if isinstance(detail, dict) and detail.get("message"):
+            return str(detail["message"])
+    return str(getattr(exc, "message", exc))
 
 class BaseLLMClient(ABC):
     """Define la interfaz común y la lógica de reintentos compartida."""
