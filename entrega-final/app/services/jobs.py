@@ -63,6 +63,8 @@ class RepositorioJobs:
             datos[campo] = json.loads(datos[campo])
         for campo in CAMPOS_NUMERICOS & datos.keys():
             datos[campo] = float(datos[campo])
+        if "reintentos" in datos:
+            datos["reintentos"] = int(datos["reintentos"])
         if "fin" in datos:
             datos["duracion_total_s"] = round(datos["fin"] - datos["creado"], 2)
         return datos

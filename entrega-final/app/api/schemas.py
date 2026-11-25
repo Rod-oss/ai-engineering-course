@@ -57,6 +57,8 @@ class EstadoTarea(BaseModel):
     aprobacion_pendiente: SolicitudAprobacion | None = None
     aprobacion: DecisionHumana | None = None
     error: str | None = None
+    reintentos: int = Field(default=0, description="Reintentos automáticos por errores transitorios del proveedor.")
+    ultimo_error: str | None = Field(default=None, description="Último error transitorio, si hubo reintentos.")
 
 
 class AprobacionRecibida(BaseModel):

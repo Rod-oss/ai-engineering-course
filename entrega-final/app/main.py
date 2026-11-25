@@ -60,6 +60,8 @@ async def lifespan(app: FastAPI):
                 proveedor.get_tracer("kestrel.api"),
                 settings.worker_concurrency,
                 settings.recursion_limit_grafo,
+                max_reintentos=settings.job_max_reintentos,
+                espera_reintento_s=settings.job_espera_reintento_s,
             )
             worker.iniciar()
             recuperados = await worker.recuperar_pendientes()

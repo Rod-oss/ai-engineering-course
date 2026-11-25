@@ -63,6 +63,12 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379"
     worker_concurrency: int = Field(default=2, ge=1)
     job_ttl_dias: int = Field(default=7, ge=1)
+    job_max_reintentos: int = Field(
+        default=3, ge=0, description="Reintentos ante errores transitorios (503, 429, timeout)."
+    )
+    job_espera_reintento_s: float = Field(
+        default=20, ge=0, description="Espera base del reintento; se duplica cada vez."
+    )
 
     # Observabilidad
     phoenix_endpoint: str = "http://localhost:6006/v1/traces"

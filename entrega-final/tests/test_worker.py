@@ -6,7 +6,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 from app.graph.builder import ensamblar_grafo
 from app.services.jobs import EstadoJob
-from app.services.worker import Worker
+from app.services.worker import Worker, es_transitorio
 from tests.fakes import RedisFalso, RepositorioFalso, TracerFalso, nodos_completos
 
 JOB = "a" * 32
@@ -95,3 +95,62 @@ def test_recupera_una_aprobacion_recibida_antes_del_reinicio():
     assert tipo == "reanudar"
     assert job["estado"] == EstadoJob.DONE
     assert "APROBADA" in job["resultado"]["resultado_accion"]
+
+
+async def esperar_estado_final(jobs, limite_s: float = 5) -> dict:
+    for _ in range(int(limite_s / 0.05)):
+        job = await jobs.obtener(JOB)
+        if job["estado"] in (EstadoJob.DONE, EstadoJob.FAILED):
+            return job
+        await asyncio.sleep(0.05)
+    raise TimeoutError("El job no terminó")
+
+
+def test_error_transitorio_se_reintenta_desde_el_checkpoint():
+    """El analista falla una vez con un error temporal: el job vuelve a PENDING y termina en DONE."""
+
+    async def flujo():
+        jobs = RepositorioFalso()
+        grafo = ensamblar_grafo(nodos_completos(RedisFalso(), accion="ninguna", fallas_analista=1), InMemorySaver())
+        worker = Worker(grafo, jobs, TracerFalso(), 1, 25, max_reintentos=2, espera_reintento_s=0)
+        await jobs.crear(JOB, "tarea")
+        worker.iniciar()
+        await worker.encolar_inicio(JOB, "tarea")
+        job = await esperar_estado_final(jobs)
+        await worker.detener()
+        return job, [nombre for nombre, _ in worker.tracer.spans]
+
+    job, spans = asyncio.run(flujo())
+    assert job["estado"] == EstadoJob.DONE
+    assert job["reintentos"] == 1
+    assert "Caída simulada" in job["ultimo_error"]
+    assert spans == ["job.iniciar", "job.continuar"]  # el reintento continúa, no empieza de cero
+    assert job["resultado"]["flujo"] == ["investigador", "analista", "sintesis"]
+
+
+def test_agotados_los_reintentos_el_job_queda_en_failed():
+    async def flujo():
+        jobs = RepositorioFalso()
+        grafo = ensamblar_grafo(nodos_completos(RedisFalso(), accion="ninguna", fallas_analista=5), InMemorySaver())
+        worker = Worker(grafo, jobs, TracerFalso(), 1, 25, max_reintentos=2, espera_reintento_s=0)
+        await jobs.crear(JOB, "tarea")
+        worker.iniciar()
+        await worker.encolar_inicio(JOB, "tarea")
+        job = await esperar_estado_final(jobs)
+        await worker.detener()
+        return job
+
+    job = asyncio.run(flujo())
+    assert job["estado"] == EstadoJob.FAILED
+    assert job["reintentos"] == 2
+
+
+def test_clasificacion_de_errores():
+    sobrecarga = RuntimeError("503 UNAVAILABLE. This model is currently experiencing high demand.")
+    envuelto = ValueError("fallo del modelo")
+    envuelto.__cause__ = sobrecarga
+    assert es_transitorio(sobrecarga)
+    assert es_transitorio(envuelto)
+    assert es_transitorio(TimeoutError())
+    assert not es_transitorio(RuntimeError("Error simulado para verificar el estado FAILED"))
+    assert not es_transitorio(KeyError("siguiente"))

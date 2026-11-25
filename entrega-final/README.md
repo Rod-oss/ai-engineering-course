@@ -191,6 +191,8 @@ Al arrancar, el worker revisa los jobs que quedaron en `PENDING` o `RUNNING` y l
 | El job esperaba aprobación | Lo deja en `AWAITING_APPROVAL`; la pausa sigue en Redis |
 | Ya había llegado la aprobación, pero no se procesó | Reanuda el grafo con la decisión guardada |
 
+El mismo mecanismo protege ante **errores transitorios del proveedor** (503 por sobrecarga, 429 por límite o timeouts). El job vuelve a `PENDING` y se reintenta desde su último checkpoint, con espera exponencial (20, 40 y 80 s), hasta `JOB_MAX_REINTENTOS` veces. No repite los nodos que ya terminaron, así que no gasta llamadas de más. Los campos `reintentos` y `ultimo_error` del job muestran lo ocurrido. Los errores permanentes van directo a `FAILED`.
+
 `scripts/prueba_reinicio.py` lo demuestra con el sistema real: reinicia el contenedor de la API durante una pausa HITL y durante una ejecución, y comprueba que ambos jobs terminan en `DONE`.
 
 ## Observabilidad
@@ -213,14 +215,14 @@ python -m pytest -q
 ruff check .
 ```
 
-31 pruebas con dobles de prueba (nodos falsos, Redis y tracer falsos y checkpointer en memoria):
+34 pruebas con dobles de prueba (nodos falsos, Redis y tracer falsos y checkpointer en memoria):
 
 | Archivo | Qué comprueba |
 |---|---|
 | `tests/test_rag.py` | Tokenización, BM25 con filtro de categoría, fusión RRF (orden, pesos y duplicados) y recuperador híbrido |
 | `tests/test_herramientas.py` | Herramientas del analista y del investigador: resultados correctos y rechazo de argumentos inválidos; regla determinista del supervisor |
 | `tests/test_grafo.py` | Topología, pausa y reanudación HITL, rechazo sin efectos secundarios, camino sin acción crítica y retoma de un grafo nuevo con el mismo checkpointer |
-| `tests/test_worker.py` | Ciclo completo con spans, estado `FAILED` y recuperación tras un reinicio, tanto a mitad del grafo como con una aprobación pendiente |
+| `tests/test_worker.py` | Ciclo completo con spans, estado `FAILED`, recuperación tras un reinicio (a mitad del grafo y con una aprobación pendiente), reintentos ante errores transitorios y clasificación de errores |
 | `tests/test_api.py` | Códigos `202`, `404`, `409` y `422`, validación de cuerpos y del `job_id`, y documentación OpenAPI |
 
 ### Pruebas del sistema completo
@@ -254,6 +256,7 @@ Todas las variables están en `.env.example`. Las obligatorias no tienen valor p
 | `LLM_RPM` | No (12) | Máximo de llamadas por minuto al LLM |
 | `RAG_TOP_K` y `RAG_PESO_VECTORIAL` | No (4 y 0,5) | Fragmentos por búsqueda y peso de la búsqueda semántica en la fusión |
 | `WORKER_CONCURRENCY` | No (2) | Jobs procesados en paralelo |
+| `JOB_MAX_REINTENTOS` y `JOB_ESPERA_REINTENTO_S` | No (3 y 20) | Reintentos ante errores transitorios y espera base, que se duplica en cada intento |
 | `REDIS_URL`, `PHOENIX_ENDPOINT` y `PHOENIX_PROJECT` | No | Conexiones. Docker Compose las ajusta a los nombres de sus servicios |
 
 **Índice de Pinecone:** el sistema usa el índice `kestrel-hybrid-rag` creado en la PE4. En una instalación nueva, créalo y carga la documentación con:
@@ -311,6 +314,7 @@ En este modo, `prueba_reinicio.py` se ejecuta con `--manual`, porque la API no c
 | Las consultas asíncronas concurrentes a Pinecone fallaban con "Session is closed" (PE4); en la PE6 y la PE7 se usó la búsqueda síncrona en un hilo | `PineconeAsyncio` con una sola sesión abierta en el lifespan y compartida por todas las búsquedas |
 | Al reanudar desde Redis, los objetos Pydantic del estado volvían como diccionarios y rompían el grafo (PE7) | El estado guarda JSON (`model_dump`) y se lee con `contribuciones()` y `decisiones()`, que validan de nuevo |
 | Con la cola en memoria, un reinicio perdía los jobs en curso (limitación de la PE7) | `recuperar_pendientes()` retoma cada job desde su checkpoint al arrancar |
+| En la primera prueba real, Gemini respondió `503 UNAVAILABLE` ("high demand") cinco veces seguidas y el job terminó en `FAILED`, aunque el supervisor y el investigador ya habían terminado su trabajo | Reintento a nivel de job desde el último checkpoint (`es_transitorio()` y `_manejar_error()` en `app/services/worker.py`) |
 | `429 RESOURCE_EXHAUSTED` con 2 jobs en paralelo frente a las 15 llamadas por minuto del nivel gratuito (PE7) | Un `InMemoryRateLimiter` compartido por todos los agentes (`LLM_RPM=12`) |
 | Phoenix se llenaba de spans HTTP del sondeo y el p95 perdía sentido (PE7) | Instrumentación explícita, sin proveedor global |
 | El panel de Phoenix no mostraba costos (PE7) | `metricas_phoenix.py` calcula el costo desde los tokens de las trazas |
