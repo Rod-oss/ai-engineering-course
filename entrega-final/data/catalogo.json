@@ -1,0 +1,10 @@
+{
+  "api.md": {"categoria": "api", "etiquetas": ["autenticacion", "endpoints", "webhooks"]},
+  "arquitectura.md": {"categoria": "arquitectura", "etiquetas": ["componentes", "almacenamiento", "capacidad"]},
+  "datos.md": {"categoria": "operaciones", "etiquetas": ["respaldos", "recuperacion", "retencion"]},
+  "despliegues.md": {"categoria": "procesos", "etiquetas": ["canario", "reversion", "interruptores"]},
+  "incidentes.md": {"categoria": "operaciones", "etiquetas": ["severidades", "guardia", "runbooks"]},
+  "monitoreo.md": {"categoria": "operaciones", "etiquetas": ["alertas", "slo", "tableros"]},
+  "onboarding.md": {"categoria": "procesos", "etiquetas": ["accesos", "capacitacion"]},
+  "seguridad.md": {"categoria": "seguridad", "etiquetas": ["secretos", "accesos", "vulnerabilidades"]}
+}

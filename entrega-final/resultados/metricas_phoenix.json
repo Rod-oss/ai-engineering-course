@@ -1,0 +1,72 @@
+{
+  "resumen": {
+    "fecha_utc": "2026-11-25T16:19:13+00:00",
+    "ventana_minutos": 120,
+    "jobs": 5,
+    "trazas": 8,
+    "llamadas_llm": 43,
+    "latencia_procesamiento_s": {
+      "p50": 110.62,
+      "p95": 179.97,
+      "max": 191.07
+    },
+    "costo_por_ejecucion_usd": {
+      "promedio": 0.004394,
+      "p95": 0.004933,
+      "max": 0.005027
+    },
+    "costo_total_usd": 0.021972,
+    "precios_usd_por_millon": {
+      "entrada": 0.3,
+      "salida": 2.5
+    },
+    "nota": "Costo estimado con precios del nivel de pago. La prueba usó el nivel gratuito, así que el costo real fue 0. La latencia mide desde que el worker toma el job (no incluye la espera en cola)."
+  },
+  "jobs": [
+    {
+      "job_id": "50a2668c",
+      "trazas": 1,
+      "latencia_s": 72.42,
+      "llamadas_llm": 9,
+      "tokens_entrada": 7044,
+      "tokens_salida": 962,
+      "costo_usd": 0.004518
+    },
+    {
+      "job_id": "a3b82f29",
+      "trazas": 1,
+      "latencia_s": 83.34,
+      "llamadas_llm": 8,
+      "tokens_entrada": 6410,
+      "tokens_salida": 731,
+      "costo_usd": 0.00375
+    },
+    {
+      "job_id": "038dc3cf",
+      "trazas": 2,
+      "latencia_s": 110.62,
+      "llamadas_llm": 8,
+      "tokens_entrada": 6549,
+      "tokens_salida": 1225,
+      "costo_usd": 0.005027
+    },
+    {
+      "job_id": "cd550264",
+      "trazas": 1,
+      "latencia_s": 135.59,
+      "llamadas_llm": 9,
+      "tokens_entrada": 6154,
+      "tokens_salida": 909,
+      "costo_usd": 0.004119
+    },
+    {
+      "job_id": "636154df",
+      "trazas": 3,
+      "latencia_s": 191.07,
+      "llamadas_llm": 9,
+      "tokens_entrada": 6176,
+      "tokens_salida": 1082,
+      "costo_usd": 0.004558
+    }
+  ]
+}

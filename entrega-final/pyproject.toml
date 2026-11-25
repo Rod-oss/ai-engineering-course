@@ -1,0 +1,17 @@
+# Configuración de herramientas. Las dependencias están en requirements.txt y requirements-dev.txt.
+[project]
+name = "kestrel-intelligence"
+version = "1.0.0"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+# El formateador ajusta el ancho del código; los prompts largos se dejan en una línea.
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

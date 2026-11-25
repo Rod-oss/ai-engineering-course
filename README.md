@@ -13,7 +13,7 @@ Repositorio con las actividades del curso de AI Engineering. Cada entrega vive e
 | 5 | [Pre-entrega 5](pre-entrega-05/) | Agente de razonamiento cíclico con memoria persistente | Completada |
 | 6 | [Pre-entrega 6](pre-entrega-06/) | Orquestador multi-agente especializado | Completada |
 | 7 | [Pre-entrega 7](pre-entrega-07/) | API de producción y monitoreo activo | Completada |
-| 8 | [Entrega final](entrega-final/) | Sistema de IA de grado de producción | Pendiente |
+| 8 | [Entrega final](entrega-final/) | Sistema de IA de grado de producción | Completada |
 
 ## Entorno de desarrollo
 
