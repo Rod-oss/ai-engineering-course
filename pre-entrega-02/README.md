@@ -117,7 +117,7 @@ Con el texto ambiguo, el validador no lanzó ninguna excepción: el modelo devol
 - **Reintentos solo ante errores recuperables**: errores como una clave inválida no se reintentan.
 - **Reintentos internos del SDK desactivados** (`max_retries=0`) para que no se sumen a los de `.with_retry()`.
 - **Temperatura 0**: respuestas más estables para una tarea de extracción.
-- **Logs**: cada intento queda registrado, y los reintentos aparecen como advertencias.
+- **Logs**: cada intento queda registrado con su número (`Intento N de 3`), lo que permite seguir los reintentos; la validación correcta, los fallos y el error final también se registran.
 
 ## Limitaciones conocidas
 

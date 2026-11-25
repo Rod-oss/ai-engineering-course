@@ -157,10 +157,7 @@ async def process_text(text: str, cadena: Runnable | None = None,
     cadena = cadena or construir_cadena()
     logger.info("[%s] Procesando texto de %d caracteres", etiqueta, len(text))
     try:
-        resultado = await cadena.ainvoke(
-            {"texto": text, "_estado": estado},
-            config={"callbacks": [RegistroReintentos(etiqueta)]},
-        )
+        resultado = await cadena.ainvoke({"texto": text, "_estado": estado})
     except Exception as exc:
         logger.error("[%s] Extracción fallida tras %d intento(s): %s",
                      etiqueta, estado["intentos"], _describir(exc))
