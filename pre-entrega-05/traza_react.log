@@ -1,0 +1,36 @@
+03:06:28 ===== Conexión 1 a SQLite (demo_checkpoints.sqlite) =====
+03:06:29 [sesion-mariana] Usuario: ¿Cuántos pedidos tuvo la clienta Mariana Lopes y cuál fue el total?
+03:06:29   → El agente decide usar la herramienta: buscar_cliente({'nombre': 'Mariana Lopes'})
+03:06:30   → La herramienta buscar_cliente devuelve: {"resultado": "sin_coincidencias", "nombre_buscado": "Mariana Lopes", "sugerencias": ["Mariana López", "Ana Torres"]}
+03:06:30   → El agente decide usar la herramienta: buscar_cliente({'nombre': 'Mariana López'})
+03:06:31   → La herramienta buscar_cliente devuelve: {"resultado": "encontrado", "cliente": {"cliente_id": 102, "nombre": "Mariana López", "ciudad": "Monterrey"}}
+03:06:31   → El agente decide usar la herramienta: buscar_pedidos({'cliente_id': 102})
+03:06:31   → La herramienta buscar_pedidos devuelve: {"cliente_id": 102, "nombre": "Mariana López", "cantidad_pedidos": 3, "total_mxn": 14500, "pedidos": [{"pedido_id": "P-1001", "fecha": "2026-09-14", "total": 4200, "estado": "entregado"}, {"pedido_id": "P-1007", "fecha": "2026-10-02", "total": 6800, "estado": "entregado"}, {"pedido_id": "P-1015", "fecha": "2026-11-18", "total": 3500, "estado": "enviado"}]}
+03:06:32   → Respuesta: Mariana López tuvo un total de **3 pedidos**, con un gasto acumulado de **$14,500 MXN**.
+03:06:37 ===== Conexión 2 a SQLite (demo_checkpoints.sqlite) =====
+03:06:37 [sesion-mariana] Usuario: ¿Y el último? ¿Qué productos incluía y en qué estado está?
+03:06:38   → El agente decide usar la herramienta: obtener_detalle_pedido({'pedido_id': 'P-1015'})
+03:06:38   → La herramienta obtener_detalle_pedido devuelve: {"pedido_id": "P-1015", "cliente_id": 102, "fecha": "2026-11-18", "total": 3500, "estado": "enviado", "productos": ["Teclado mecánico", "Mouse ergonómico"], "ciudad_envio": "Monterrey"}
+03:06:39   → Respuesta: El último pedido de Mariana López (P-1015, realizado el 18 de noviembre de 2026 por un total de $3,500 MXN) se encuentra en estado **enviado** e incluía los siguientes productos:
+
+- Teclado mecánico
+- Mouse ergonómico
+03:06:44 [sesion-nueva] Usuario: ¿Y el último? ¿Qué productos incluía?
+03:06:45   → Respuesta: Para poder decirte qué productos incluía, ¿podrías indicarme a qué cliente o pedido te refieres?
+03:06:50 [sesion-ana] Usuario: ¿Cuánto ha gastado Ana en total?
+03:06:50   → El agente decide usar la herramienta: buscar_cliente({'nombre': 'Ana'})
+03:06:51   → La herramienta buscar_cliente devuelve: {"resultado": "ambiguo", "coincidencias": [{"cliente_id": 101, "nombre": "Ana Torres", "ciudad": "Guadalajara"}, {"cliente_id": 103, "nombre": "Ana Ruiz", "ciudad": "Puebla"}], "nota": "Hay varios clientes con ese nombre. Pide una aclaración al usuario."}
+03:06:51   → Respuesta: Encontré a dos clientas con ese nombre: Ana Torres (de Guadalajara) y Ana Ruiz (de Puebla). ¿A cuál de las dos te refieres?
+03:06:56 [sesion-ana] Usuario: Me refiero a Ana Ruiz.
+03:06:57   → El agente decide usar la herramienta: buscar_cliente({'nombre': 'Ana Ruiz'})
+03:06:57   → La herramienta buscar_cliente devuelve: {"resultado": "encontrado", "cliente": {"cliente_id": 103, "nombre": "Ana Ruiz", "ciudad": "Puebla"}}
+03:06:58   → El agente decide usar la herramienta: buscar_pedidos({'cliente_id': 103})
+03:06:58   → La herramienta buscar_pedidos devuelve: {"cliente_id": 103, "nombre": "Ana Ruiz", "cantidad_pedidos": 1, "total_mxn": 12000, "pedidos": [{"pedido_id": "P-1009", "fecha": "2026-10-11", "total": 12000, "estado": "pagado"}]}
+03:06:59   → Respuesta: Ana Ruiz ha gastado un total de $12,000 MXN en su único pedido realizado.
+03:07:04 [sesion-error] Usuario: Dame el resumen de pedidos del cliente con id 999.
+03:07:04   → El agente decide usar la herramienta: buscar_pedidos({'cliente_id': 999})
+03:07:05   → La herramienta buscar_pedidos ERROR: Error: ValueError('No existe ningún cliente con cliente_id=999. Usa buscar_cliente para obtener un id válido.')
+ Please fix your mistakes.
+03:07:06   → Respuesta: Lo siento, no existe ningún cliente con el ID 999 en el sistema. 
+
+Si conoces el nombre del cliente, dime cuál es y con gusto buscaré su ID y sus pedidos.
