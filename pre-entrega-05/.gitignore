@@ -1,0 +1,4 @@
+# Bases de checkpoints: se regeneran al ejecutar
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

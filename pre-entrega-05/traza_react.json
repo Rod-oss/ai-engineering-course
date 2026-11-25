@@ -1,0 +1,250 @@
+[
+  {
+    "conexion_sqlite": 1,
+    "thread_id": "sesion-mariana",
+    "usuario": "¿Cuántos pedidos tuvo la clienta Mariana Lopes y cuál fue el total?",
+    "pasos": [
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "buscar_cliente",
+            "argumentos": {
+              "nombre": "Mariana Lopes"
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "buscar_cliente",
+        "error": false,
+        "resultado": "{\"resultado\": \"sin_coincidencias\", \"nombre_buscado\": \"Mariana Lopes\", \"sugerencias\": [\"Mariana López\", \"Ana Torres\"]}"
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "buscar_cliente",
+            "argumentos": {
+              "nombre": "Mariana López"
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "buscar_cliente",
+        "error": false,
+        "resultado": "{\"resultado\": \"encontrado\", \"cliente\": {\"cliente_id\": 102, \"nombre\": \"Mariana López\", \"ciudad\": \"Monterrey\"}}"
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "buscar_pedidos",
+            "argumentos": {
+              "cliente_id": 102
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "buscar_pedidos",
+        "error": false,
+        "resultado": "{\"cliente_id\": 102, \"nombre\": \"Mariana López\", \"cantidad_pedidos\": 3, \"total_mxn\": 14500, \"pedidos\": [{\"pedido_id\": \"P-1001\", \"fecha\": \"2026-09-14\", \"total\": 4200, \"estado\": \"entregado\"}, {\"pedido_id\": \"P-1007\", \"fecha\": \"2026-10-02\", \"total\": 6800, \"estado\": \"entregado\"}, {\"pedido_id\": \"P-1015\", \"fecha\": \"2026-11-18\", \"total\": 3500, \"estado\": \"enviado\"}]}"
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "respuesta",
+        "texto": "Mariana López tuvo un total de **3 pedidos**, con un gasto acumulado de **$14,500 MXN**."
+      }
+    ],
+    "respuesta": "Mariana López tuvo un total de **3 pedidos**, con un gasto acumulado de **$14,500 MXN**.",
+    "herramientas_en_el_turno": 3,
+    "herramientas_en_la_sesion": 3,
+    "mensajes_en_el_historial": 8
+  },
+  {
+    "conexion_sqlite": 2,
+    "thread_id": "sesion-mariana",
+    "usuario": "¿Y el último? ¿Qué productos incluía y en qué estado está?",
+    "pasos": [
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "obtener_detalle_pedido",
+            "argumentos": {
+              "pedido_id": "P-1015"
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "obtener_detalle_pedido",
+        "error": false,
+        "resultado": "{\"pedido_id\": \"P-1015\", \"cliente_id\": 102, \"fecha\": \"2026-11-18\", \"total\": 3500, \"estado\": \"enviado\", \"productos\": [\"Teclado mecánico\", \"Mouse ergonómico\"], \"ciudad_envio\": \"Monterrey\"}"
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "respuesta",
+        "texto": "El último pedido de Mariana López (P-1015, realizado el 18 de noviembre de 2026 por un total de $3,500 MXN) se encuentra en estado **enviado** e incluía los siguientes productos:\n\n- Teclado mecánico\n- Mouse ergonómico"
+      }
+    ],
+    "respuesta": "El último pedido de Mariana López (P-1015, realizado el 18 de noviembre de 2026 por un total de $3,500 MXN) se encuentra en estado **enviado** e incluía los siguientes productos:\n\n- Teclado mecánico\n- Mouse ergonómico",
+    "herramientas_en_el_turno": 1,
+    "herramientas_en_la_sesion": 4,
+    "mensajes_en_el_historial": 12
+  },
+  {
+    "conexion_sqlite": 2,
+    "thread_id": "sesion-nueva",
+    "usuario": "¿Y el último? ¿Qué productos incluía?",
+    "pasos": [
+      {
+        "nodo": "modelo",
+        "tipo": "respuesta",
+        "texto": "Para poder decirte qué productos incluía, ¿podrías indicarme a qué cliente o pedido te refieres?"
+      }
+    ],
+    "respuesta": "Para poder decirte qué productos incluía, ¿podrías indicarme a qué cliente o pedido te refieres?",
+    "herramientas_en_el_turno": 0,
+    "herramientas_en_la_sesion": 0,
+    "mensajes_en_el_historial": 2
+  },
+  {
+    "conexion_sqlite": 2,
+    "thread_id": "sesion-ana",
+    "usuario": "¿Cuánto ha gastado Ana en total?",
+    "pasos": [
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "buscar_cliente",
+            "argumentos": {
+              "nombre": "Ana"
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "buscar_cliente",
+        "error": false,
+        "resultado": "{\"resultado\": \"ambiguo\", \"coincidencias\": [{\"cliente_id\": 101, \"nombre\": \"Ana Torres\", \"ciudad\": \"Guadalajara\"}, {\"cliente_id\": 103, \"nombre\": \"Ana Ruiz\", \"ciudad\": \"Puebla\"}], \"nota\": \"Hay varios clientes con ese nombre. Pide una aclaración al usuario.\"}"
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "respuesta",
+        "texto": "Encontré a dos clientas con ese nombre: Ana Torres (de Guadalajara) y Ana Ruiz (de Puebla). ¿A cuál de las dos te refieres?"
+      }
+    ],
+    "respuesta": "Encontré a dos clientas con ese nombre: Ana Torres (de Guadalajara) y Ana Ruiz (de Puebla). ¿A cuál de las dos te refieres?",
+    "herramientas_en_el_turno": 1,
+    "herramientas_en_la_sesion": 1,
+    "mensajes_en_el_historial": 4
+  },
+  {
+    "conexion_sqlite": 2,
+    "thread_id": "sesion-ana",
+    "usuario": "Me refiero a Ana Ruiz.",
+    "pasos": [
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "buscar_cliente",
+            "argumentos": {
+              "nombre": "Ana Ruiz"
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "buscar_cliente",
+        "error": false,
+        "resultado": "{\"resultado\": \"encontrado\", \"cliente\": {\"cliente_id\": 103, \"nombre\": \"Ana Ruiz\", \"ciudad\": \"Puebla\"}}"
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "buscar_pedidos",
+            "argumentos": {
+              "cliente_id": 103
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "buscar_pedidos",
+        "error": false,
+        "resultado": "{\"cliente_id\": 103, \"nombre\": \"Ana Ruiz\", \"cantidad_pedidos\": 1, \"total_mxn\": 12000, \"pedidos\": [{\"pedido_id\": \"P-1009\", \"fecha\": \"2026-10-11\", \"total\": 12000, \"estado\": \"pagado\"}]}"
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "respuesta",
+        "texto": "Ana Ruiz ha gastado un total de $12,000 MXN en su único pedido realizado."
+      }
+    ],
+    "respuesta": "Ana Ruiz ha gastado un total de $12,000 MXN en su único pedido realizado.",
+    "herramientas_en_el_turno": 2,
+    "herramientas_en_la_sesion": 3,
+    "mensajes_en_el_historial": 10
+  },
+  {
+    "conexion_sqlite": 2,
+    "thread_id": "sesion-error",
+    "usuario": "Dame el resumen de pedidos del cliente con id 999.",
+    "pasos": [
+      {
+        "nodo": "modelo",
+        "tipo": "accion",
+        "herramientas": [
+          {
+            "nombre": "buscar_pedidos",
+            "argumentos": {
+              "cliente_id": 999
+            }
+          }
+        ]
+      },
+      {
+        "nodo": "herramientas",
+        "tipo": "observacion",
+        "herramienta": "buscar_pedidos",
+        "error": true,
+        "resultado": "Error: ValueError('No existe ningún cliente con cliente_id=999. Usa buscar_cliente para obtener un id válido.')\n Please fix your mistakes."
+      },
+      {
+        "nodo": "modelo",
+        "tipo": "respuesta",
+        "texto": "Lo siento, no existe ningún cliente con el ID 999 en el sistema. \n\nSi conoces el nombre del cliente, dime cuál es y con gusto buscaré su ID y sus pedidos."
+      }
+    ],
+    "respuesta": "Lo siento, no existe ningún cliente con el ID 999 en el sistema. \n\nSi conoces el nombre del cliente, dime cuál es y con gusto buscaré su ID y sus pedidos.",
+    "herramientas_en_el_turno": 1,
+    "herramientas_en_la_sesion": 1,
+    "mensajes_en_el_historial": 4
+  }
+]
