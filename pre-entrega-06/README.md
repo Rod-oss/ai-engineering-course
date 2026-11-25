@@ -86,15 +86,16 @@ Tarea de prueba, que requiere búsqueda documental, cálculo y síntesis:
 
 > Este mes, de 30 días, Kestrel estuvo caído un total de 38 minutos. Además, durante un despliegue canario la tasa de errores llegó al 2,4 % durante 6 minutos consecutivos. ¿Cumplimos el objetivo de disponibilidad mensual, qué porcentaje del presupuesto de error consumimos y qué acciones exige la documentación por el episodio del despliegue?
 
-Flujo observado: **supervisor → investigador → supervisor → analista → supervisor → síntesis**.
+Flujo observado en `demo.ipynb`: **supervisor → investigador → supervisor → analista → supervisor → analista (corrección) → supervisor → síntesis**.
 
 | Paso | Agente | Herramientas | Aporte |
 |---|---|---|---|
-| 1 | Investigador | `buscar_documentacion` | SLO de 99,9 %, presupuesto de unos 43 minutos, regla de reversión (más del 2 % durante 5 minutos) y regla de congelamiento, con sus fuentes |
-| 2 | Analista | `analizar_disponibilidad`, `calcular`, `comparar_con_umbral` | Disponibilidad de 99,912 % (cumple), 87,96 % del presupuesto consumido y activación de la regla de reversión |
-| 3 | Supervisor | | Validó los 4 criterios de la rúbrica y pasó a la síntesis |
+| 1 | Investigador | `buscar_documentacion` | SLO de 99,9 %, presupuesto de unos 43 minutos, regla de reversión (más del 2 % durante 5 minutos) y acciones posteriores, con sus fuentes |
+| 2 | Analista | `analizar_disponibilidad`, `comparar_con_umbral` | Disponibilidad de 99,912 % (cumple) y 87,96 % del presupuesto consumido |
+| 3 | Supervisor y analista | `comparar_con_umbral` | **Refinamiento:** el supervisor detectó que faltaba comparar la tasa de errores con el umbral y devolvió el trabajo al analista, que confirmó que se activa la regla de reversión |
+| 4 | Supervisor | | Validó los 4 criterios de la rúbrica y pasó a la síntesis |
 
-La ejecución completa, con las evaluaciones del supervisor y la respuesta final, está en **`demo.ipynb`**, que se puede revisar directamente en GitHub sin ejecutarlo.
+Este flujo muestra el mecanismo de supervisión en acción: el supervisor no aceptó un resultado incompleto y pidió una corrección específica antes de finalizar.
 
 ## Instalación y ejecución
 
@@ -128,10 +129,10 @@ Los agentes usan `ChatGoogleGenerativeAI`, la integración nativa de Gemini, por
 
 ## Limitaciones conocidas
 
-- **Variabilidad entre ejecuciones:** el investigador no siempre recupera los mismos detalles. En una ejecución encontró también las acciones posteriores a una reversión; en otra, no.
-- **El refinamiento no se activó en la demostración:** los resultados de cada especialista cumplieron la rúbrica en el primer intento, así que el supervisor no necesitó pedir correcciones. El mecanismo está implementado, pero esta prueba no lo ejercita.
+- **Variabilidad entre ejecuciones:** el flujo y el nivel de detalle cambian de una ejecución a otra. En `demo.ipynb` el supervisor pidió una corrección al analista; en otra ejecución de `main.py` los resultados cumplieron la rúbrica al primer intento y no hizo falta. Del mismo modo, el investigador no siempre recupera las acciones posteriores a una reversión.
 - **La rúbrica la aplica un modelo:** en una ejecución anterior, el supervisor finalizó aunque él mismo había evaluado un criterio como "parcial". Se reforzó el prompt, y la validación en código cubre el caso más grave, que es finalizar sin el aporte de un especialista.
 - **Límite de peticiones del plan gratuito:** cada consulta completa hace alrededor de 10 llamadas al modelo; con el límite de 15 por minuto no conviene lanzar varias consultas seguidas.
+
 
 ## Estructura
 
