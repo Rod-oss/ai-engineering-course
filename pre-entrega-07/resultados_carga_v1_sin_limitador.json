@@ -1,0 +1,105 @@
+{
+  "resumen": {
+    "fecha_utc": "2026-11-25T05:21:32+00:00",
+    "url": "http://localhost:8000",
+    "solicitudes": 5,
+    "completadas": 4,
+    "fallidas": 1,
+    "timeout": 0,
+    "con_aprobacion_hitl": 1,
+    "duracion_total_prueba_s": 114.45,
+    "latencia_extremo_a_extremo_s": {
+      "p50": 84.38,
+      "p95": 109.93,
+      "max": 114.44
+    },
+    "respuesta_post_ms": {
+      "p50": 32.5,
+      "p95": 50.0
+    },
+    "nota": "Latencia medida desde el cliente: incluye la espera en cola (concurrencia del worker = 2) y hasta 3 s de margen por el intervalo de sondeo."
+  },
+  "jobs": [
+    {
+      "job_id": "e7d8aecf854846da83543d28ec89cd3e",
+      "tarea": "Durante un despliegue canario la tasa de errores llegó al 2,4 % durante 6 minutos consecutivos. ¿Qué exige la documentación?",
+      "respuesta_post_ms": 10.1,
+      "estado": "DONE",
+      "latencia_s": 84.38,
+      "duracion_servidor_s": 81.41,
+      "requirio_aprobacion": true,
+      "accion_critica": "revertir_despliegue",
+      "resultado_accion": "Acción 'revertir_despliegue' APROBADA y ejecutada (simulada). Registro de auditoría: ed4e5553db5b",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    },
+    {
+      "job_id": "d97dbbe1ff654a8589241b4c2f91b1a0",
+      "tarea": "Un despliegue canario lleva 10 minutos con una tasa de errores del 1,6 % y una latencia p95 de 950 ms. ¿Qué indica la documentación?",
+      "respuesta_post_ms": 37.5,
+      "estado": "DONE",
+      "latencia_s": 84.38,
+      "duracion_servidor_s": 81.38,
+      "requirio_aprobacion": false,
+      "accion_critica": "ninguna",
+      "resultado_accion": "",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    },
+    {
+      "job_id": "ea36386432254314befea8bf1bcd3830",
+      "tarea": "Este mes acumulamos 12 minutos de indisponibilidad. ¿Cuánto presupuesto de error nos queda según el SLO documentado?",
+      "respuesta_post_ms": 23.3,
+      "estado": "DONE",
+      "latencia_s": 9.11,
+      "duracion_servidor_s": 8.21,
+      "requirio_aprobacion": false,
+      "accion_critica": "ninguna",
+      "resultado_accion": "",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    },
+    {
+      "job_id": "46b655cdff8649c5b5dafca2ab4ac321",
+      "tarea": "Se detectó una vulnerabilidad con CVSS 9,3 hace 50 horas. ¿Qué plazo de corrección exige la documentación y cuánto tiempo queda?",
+      "respuesta_post_ms": 32.5,
+      "estado": "FAILED",
+      "latencia_s": 57.29,
+      "duracion_servidor_s": 55.06,
+      "requirio_aprobacion": false,
+      "accion_critica": null,
+      "resultado_accion": null,
+      "flujo": null,
+      "error": "GoogleRateLimitError: Error calling model 'gemini-3.5-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.5-flash-lite, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 27.161637272s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://aistudio.google.com/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'description': 'Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.', 'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.5-flash-lite', 'location': 'global'}, 'quotaValue': '15'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '27s'}]}}"
+    },
+    {
+      "job_id": "847d31c3b16a492499a310986822098d",
+      "tarea": "En el último simulacro de recuperación el servicio tardó 41 minutos en restablecerse. ¿Cumple con el RTO documentado?",
+      "respuesta_post_ms": 53.1,
+      "estado": "DONE",
+      "latencia_s": 114.44,
+      "duracion_servidor_s": 113.52,
+      "requirio_aprobacion": false,
+      "accion_critica": "ninguna",
+      "resultado_accion": "",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    }
+  ]
+}

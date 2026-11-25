@@ -1,0 +1,109 @@
+{
+  "resumen": {
+    "fecha_utc": "2026-11-25T06:16:57+00:00",
+    "url": "http://localhost:8000",
+    "solicitudes": 5,
+    "completadas": 5,
+    "fallidas": 0,
+    "timeout": 0,
+    "con_aprobacion_hitl": 2,
+    "duracion_total_prueba_s": 355.04,
+    "latencia_extremo_a_extremo_s": {
+      "p50": 213.74,
+      "p95": 327.38,
+      "max": 355.04
+    },
+    "respuesta_post_ms": {
+      "p50": 42.6,
+      "p95": 64.2
+    },
+    "nota": "Latencia medida desde el cliente: incluye la espera en cola (concurrencia del worker = 2) y hasta 3 s de margen por el intervalo de sondeo."
+  },
+  "jobs": [
+    {
+      "job_id": "733936f3c6874cc4b1811403a0d4748a",
+      "tarea": "Durante un despliegue canario la tasa de errores llegó al 2,4 % durante 6 minutos consecutivos. ¿Qué exige la documentación?",
+      "respuesta_post_ms": 16.2,
+      "estado": "DONE",
+      "latencia_s": 213.74,
+      "duracion_servidor_s": 212.45,
+      "requirio_aprobacion": true,
+      "accion_critica": "revertir_despliegue",
+      "resultado_accion": "Acción 'revertir_despliegue' APROBADA y ejecutada (simulada). Registro de auditoría: 3a30468844e9",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    },
+    {
+      "job_id": "2a3cd59c508c42e4b3a68457c2351cba",
+      "tarea": "Un despliegue canario lleva 10 minutos con una tasa de errores del 1,6 % y una latencia p95 de 950 ms. ¿Qué indica la documentación?",
+      "respuesta_post_ms": 64.9,
+      "estado": "DONE",
+      "latencia_s": 216.75,
+      "duracion_servidor_s": 213.74,
+      "requirio_aprobacion": true,
+      "accion_critica": "revertir_despliegue",
+      "resultado_accion": "Acción 'revertir_despliegue' APROBADA y ejecutada (simulada). Registro de auditoría: 903d7e705446",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    },
+    {
+      "job_id": "5a005c3e2383450eb5ac83a149445f61",
+      "tarea": "Este mes acumulamos 12 minutos de indisponibilidad. ¿Cuánto presupuesto de error nos queda según el SLO documentado?",
+      "respuesta_post_ms": 24.2,
+      "estado": "DONE",
+      "latencia_s": 147.57,
+      "duracion_servidor_s": 146.8,
+      "requirio_aprobacion": false,
+      "accion_critica": "ninguna",
+      "resultado_accion": "",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    },
+    {
+      "job_id": "f9c399707fa4497ab4bb841b6258db93",
+      "tarea": "Se detectó una vulnerabilidad con CVSS 9,3 hace 50 horas. ¿Qué plazo de corrección exige la documentación y cuánto tiempo queda?",
+      "respuesta_post_ms": 61.3,
+      "estado": "DONE",
+      "latencia_s": 355.04,
+      "duracion_servidor_s": 352.57,
+      "requirio_aprobacion": false,
+      "accion_critica": "ninguna",
+      "resultado_accion": "",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    },
+    {
+      "job_id": "010bf3e13940448ca44af1178d1a80e2",
+      "tarea": "En el último simulacro de recuperación el servicio tardó 41 minutos en restablecerse. ¿Cumple con el RTO documentado?",
+      "respuesta_post_ms": 42.6,
+      "estado": "DONE",
+      "latencia_s": 141.46,
+      "duracion_servidor_s": 140.29,
+      "requirio_aprobacion": false,
+      "accion_critica": "ninguna",
+      "resultado_accion": "",
+      "flujo": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "error": null
+    }
+  ]
+}
