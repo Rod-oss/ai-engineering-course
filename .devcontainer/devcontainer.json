@@ -1,6 +1,14 @@
 {
   "name": "AI Engineering (Python 3.12)",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {"moby": false}
+  },
+  "forwardPorts": [8000, 6006],
+  "portsAttributes": {
+    "8000": {"label": "API FastAPI"},
+    "6006": {"label": "Phoenix"}
+  },
   "postCreateCommand": "bash .devcontainer/setup.sh && bash .devcontainer/start-ollama.sh",
   "postStartCommand": "bash .devcontainer/start-ollama.sh",
   "customizations": {
