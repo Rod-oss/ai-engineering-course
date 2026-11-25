@@ -1,0 +1,47 @@
+{
+  "tarea": "Este mes, de 30 días, Kestrel estuvo caído un total de 38 minutos. Además, durante un despliegue canario la tasa de errores llegó al 2,4 % durante 6 minutos consecutivos. ¿Cumplimos el objetivo de disponibilidad mensual, qué porcentaje del presupuesto de error consumimos y qué acciones exige la documentación por el episodio del despliegue?",
+  "pasos_supervisor": 3,
+  "decisiones": [
+    {
+      "paso": 1,
+      "siguiente": "investigador",
+      "instruccion": "Busca en la documentación interna el objetivo de disponibilidad mensual para Kestrel, cómo se define o calcula el presupuesto de error mensual, y las políticas o acciones exactas exigidas cuando la tasa de errores en un despliegue supera ciertos límites.",
+      "evaluacion": "No hay contribuciones previas. Se requiere que el investigador busque en la documentación interna el objetivo de disponibilidad mensual, el presupuesto de error y las políticas o acciones exigidas ante una tasa de errores alta en despliegues canarios."
+    },
+    {
+      "paso": 2,
+      "siguiente": "analista",
+      "instruccion": "Calcula el porcentaje exacto de disponibilidad mensual dado que Kestrel estuvo caído 38 minutos en un mes de 30 días, y calcula qué porcentaje del presupuesto de error mensual de 43 minutos se consumió. Además, compara la tasa de errores del despliegue canario (2,4 % durante 6 minutos consecutivos) con el límite de reversión.",
+      "evaluacion": "El investigador ya obtuvo los umbrales de la documentación interna, pero faltan los cálculos exactos y la comparación con dichos umbrales, los cuales deben ser realizados por el analista."
+    },
+    {
+      "paso": 3,
+      "siguiente": "sintesis",
+      "instruccion": "Redacta la respuesta final integrando el cumplimiento del objetivo de disponibilidad, el porcentaje consumido del presupuesto de error mensual y las acciones exigidas por la documentación para el episodio del despliegue canario.",
+      "evaluacion": "El investigador obtuvo todos los umbrales y políticas correctamente de la documentación interna. El analista realizó todos los cálculos y comparaciones cuantitativas necesarios utilizando los datos proporcionados. Los 4 criterios de la rúbrica se cumplen por completo."
+    }
+  ],
+  "contribuciones": [
+    {
+      "paso": 1,
+      "agente": "investigador",
+      "instruccion": "Busca en la documentación interna el objetivo de disponibilidad mensual para Kestrel, cómo se define o calcula el presupuesto de error mensual, y las políticas o acciones exactas exigidas cuando la tasa de errores en un despliegue supera ciertos límites.",
+      "resultado": "A partir de la documentación interna de Kestrel, los datos correspondientes son los siguientes:\n\n* **Objetivo de disponibilidad mensual:** 99,9 % [monitoreo-00].\n* **Definición y cálculo del presupuesto de error mensual:** Margen que permite que Kestrel esté fuera de servicio unos 43 minutos al mes con un objetivo de disponibilidad del 99,9 % [monitoreo-00].\n* **Políticas o acciones exigidas cuando la tasa de errores supera ciertos límites:**\n  * Si el presupuesto de error se consume al doble de la velocidad normal durante una hora, se congelan los despliegues que no sean urgentes [monitoreo-00].\n  * La versión en un despliegue canario se revierte de inmediato si la tasa de errores supera el 2 % durante 5 minutos consecutivos [despliegues-00].",
+      "herramientas": [
+        "buscar_documentacion"
+      ]
+    },
+    {
+      "paso": 2,
+      "agente": "analista",
+      "instruccion": "Calcula el porcentaje exacto de disponibilidad mensual dado que Kestrel estuvo caído 38 minutos en un mes de 30 días, y calcula qué porcentaje del presupuesto de error mensual de 43 minutos se consumió. Además, compara la tasa de errores del despliegue canario (2,4 % durante 6 minutos consecutivos) con el límite de reversión.",
+      "resultado": "Resultados del análisis cuantitativo para la plataforma Kestrel:\n\n1. **Disponibilidad mensual (analizar_disponibilidad):**\n   * **Resultado:** 99,912 % de disponibilidad lograda en el periodo de 30 días (con 38 minutos de caída frente a un total de 43 200 minutos).\n   * **Conclusión:** Kestrel cumple con el SLO del 99,9 %.\n\n2. **Presupuesto de error consumido (analizar_disponibilidad y calcular):**\n   * **Resultado con los minutos exactos del presupuesto de error según la herramienta `analizar_disponibilidad` (43,2 min):** 87,96 % consumido (quedan 5,2 minutos).\n   * **Resultado con el valor nominal de 43 minutos (`calcular`):** 88,37 %.\n   * **Conclusión:** Se ha consumido cerca del 88 % del presupuesto de error mensual, quedando un margen muy reducido de minutos restantes.\n\n3. **Comparación del despliegue canario (comparar_con_umbral):**\n   * **Resultado:** La tasa de errores medida fue de 2,4 % durante 6 minutos consecutivos, superando el umbral límite del 2 % exigido durante 5 minutos consecutivos.\n   * **Conclusión:** La condición de alerta se activa (`se_activa: true`), por lo que **se debe revertir de inmediato la versión del despliegue canario** según la política establecida.",
+      "herramientas": [
+        "analizar_disponibilidad",
+        "calcular",
+        "comparar_con_umbral"
+      ]
+    }
+  ],
+  "respuesta_final": "A continuación se presenta la respuesta detallada basada exclusivamente en las contribuciones del equipo y la documentación:\n\n* **¿Cumplimos el objetivo de disponibilidad mensual?**\n  Sí, se cumple con el objetivo de disponibilidad mensual [analista, paso 2]. Kestrel logró una disponibilidad de 99,912 % en el periodo de 30 días (con 38 minutos de caída frente a un total de 43 200 minutos), superando el objetivo del 99,9 % [analista, paso 2] [monitoreo-00].\n\n* **¿Qué porcentaje del presupuesto de error consumimos?**\n  Se consumió cerca del 88 % del presupuesto de error mensual [analista, paso 2]. Específicamente, el resultado es de 87,96 % utilizando los minutos exactos del presupuesto de error (43,2 minutos) o de 88,37 % utilizando el valor nominal de 43 minutos [analista, paso 2] [monitoreo-00].\n\n* **¿Qué acciones exige la documentación por el episodio del despliegue?**\n  Como la tasa de errores llegó al 2,4 % durante 6 minutos consecutivos (superando el límite del 2 % durante 5 minutos), la documentación exige que **se revierta de inmediato la versión en el despliegue canario** [investigador, paso 1] [analista, paso 2]. Además, si el presupuesto de error se consume al doble de la velocidad normal durante una hora, se congelan los despliegues que no sean urgentes [investigador, paso 1].\n\n---\n\n### Acciones requeridas\n* Revertir de inmediato la versión del despliegue canario debido a que se superó el umbral de errores [investigador, paso 1] [analista, paso 2].\n* Congelar los despliegues que no sean urgentes, aplicable si el presupuesto de error se consume al doble de la velocidad normal durante una hora [investigador, paso 1]."
+}
