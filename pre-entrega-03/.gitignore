@@ -1,0 +1,2 @@
+# La base vectorial se regenera con: python ingest.py
+vectorstore/

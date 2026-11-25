@@ -1,0 +1,50 @@
+[
+  {
+    "prueba": "respuesta_en_un_documento",
+    "paso": true,
+    "pregunta": "¿Qué se debe hacer si durante un despliegue canario la tasa de errores supera el límite permitido?",
+    "respuesta": "La versión se revierte de inmediato usando el comando kestrel-cli desplegar revertir --servicio nombre-del-servicio. Después de revertir hay que avisar en el canal #kestrel-despliegues y, si hubo clientes afectados, abrir un incidente.",
+    "encontrada": true,
+    "fuentes": [
+      "despliegues.md#1"
+    ],
+    "fragmentos_recuperados": [
+      "despliegues.md#1",
+      "despliegues.md#0",
+      "incidentes.md#1",
+      "incidentes.md#0"
+    ]
+  },
+  {
+    "prueba": "respuesta_en_varios_documentos",
+    "paso": true,
+    "pregunta": "¿Qué base de datos usa el servicio de pedidos y qué severidad tiene un incidente si esa base deja de aceptar escrituras?",
+    "respuesta": "El servicio de pedidos (Atlas) guarda sus datos en la base de datos principal kestrel-db, que es PostgreSQL 16 (arquitectura.md#0, arquitectura.md#1). Si la base de datos deja de aceptar escrituras, el incidente se clasifica siempre como SEV1 (incidentes.md#1).",
+    "encontrada": true,
+    "fuentes": [
+      "arquitectura.md#0",
+      "arquitectura.md#1",
+      "incidentes.md#1"
+    ],
+    "fragmentos_recuperados": [
+      "arquitectura.md#1",
+      "incidentes.md#1",
+      "arquitectura.md#0",
+      "incidentes.md#0"
+    ]
+  },
+  {
+    "prueba": "pregunta_trampa",
+    "paso": true,
+    "pregunta": "¿Cuánto cuesta al mes el plan empresarial de la API de Kestrel?",
+    "respuesta": "No lo sé.",
+    "encontrada": false,
+    "fuentes": [],
+    "fragmentos_recuperados": [
+      "api.md#1",
+      "arquitectura.md#0",
+      "api.md#0",
+      "despliegues.md#0"
+    ]
+  }
+]
