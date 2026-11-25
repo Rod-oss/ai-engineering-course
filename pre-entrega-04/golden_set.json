@@ -1,0 +1,33 @@
+[
+  {
+    "id": "q1",
+    "tipo": "conceptual",
+    "pregunta": "¿Quién toma las decisiones durante un incidente grave y dónde se coordina?",
+    "documento_id_esperado": "incidentes.md"
+  },
+  {
+    "id": "q2",
+    "tipo": "termino_exacto",
+    "pregunta": "¿Qué indica la alerta AtlasLatenciaAlta?",
+    "documento_id_esperado": "monitoreo.md"
+  },
+  {
+    "id": "q3",
+    "tipo": "termino_exacto",
+    "pregunta": "¿Qué hace el comando kestrel-cli db restaurar?",
+    "documento_id_esperado": "datos.md"
+  },
+  {
+    "id": "q4",
+    "tipo": "parafrasis",
+    "pregunta": "¿Por cuánto tiempo puede quedarse en el código un mecanismo temporal para encender y apagar funcionalidades?",
+    "documento_id_esperado": "despliegues.md"
+  },
+  {
+    "id": "q5",
+    "tipo": "conceptual",
+    "pregunta": "¿Qué requisitos debe cumplir una persona recién llegada para entrar a producción?",
+    "documento_id_esperado": "onboarding.md",
+    "documentos_relevantes": ["onboarding.md", "seguridad.md"]
+  }
+]

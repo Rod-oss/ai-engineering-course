@@ -1,0 +1,252 @@
+{
+  "resumen": {
+    "vectorial": {
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.32,
+      "precision_maxima": 0.32
+    },
+    "lexico": {
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.24000000000000005,
+      "precision_maxima": 0.32
+    },
+    "hibrido": {
+      "recall_at_5": 1.0,
+      "precision_at_5": 0.28,
+      "precision_maxima": 0.32
+    }
+  },
+  "detalle": {
+    "vectorial": [
+      {
+        "id": "q1",
+        "tipo": "conceptual",
+        "recall": 1.0,
+        "precision": 0.4,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "incidentes.md",
+          "despliegues.md",
+          "seguridad.md",
+          "incidentes.md",
+          "monitoreo.md"
+        ]
+      },
+      {
+        "id": "q2",
+        "tipo": "termino_exacto",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.2,
+        "posicion": 1,
+        "recuperados": [
+          "monitoreo.md",
+          "arquitectura.md",
+          "incidentes.md",
+          "arquitectura.md",
+          "despliegues.md"
+        ]
+      },
+      {
+        "id": "q3",
+        "tipo": "termino_exacto",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.2,
+        "posicion": 1,
+        "recuperados": [
+          "datos.md",
+          "incidentes.md",
+          "arquitectura.md",
+          "api.md",
+          "despliegues.md"
+        ]
+      },
+      {
+        "id": "q4",
+        "tipo": "parafrasis",
+        "recall": 1.0,
+        "precision": 0.4,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "despliegues.md",
+          "despliegues.md",
+          "api.md",
+          "seguridad.md",
+          "onboarding.md"
+        ]
+      },
+      {
+        "id": "q5",
+        "tipo": "conceptual",
+        "recall": 1.0,
+        "precision": 0.4,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "onboarding.md",
+          "despliegues.md",
+          "despliegues.md",
+          "seguridad.md",
+          "incidentes.md"
+        ]
+      }
+    ],
+    "lexico": [
+      {
+        "id": "q1",
+        "tipo": "conceptual",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "incidentes.md",
+          "despliegues.md",
+          "monitoreo.md",
+          "seguridad.md",
+          "datos.md"
+        ]
+      },
+      {
+        "id": "q2",
+        "tipo": "termino_exacto",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.2,
+        "posicion": 1,
+        "recuperados": [
+          "monitoreo.md",
+          "api.md",
+          "incidentes.md",
+          "despliegues.md",
+          "onboarding.md"
+        ]
+      },
+      {
+        "id": "q3",
+        "tipo": "termino_exacto",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.2,
+        "posicion": 1,
+        "recuperados": [
+          "datos.md",
+          "incidentes.md",
+          "onboarding.md",
+          "despliegues.md",
+          "incidentes.md"
+        ]
+      },
+      {
+        "id": "q4",
+        "tipo": "parafrasis",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.4,
+        "posicion": 2,
+        "recuperados": [
+          "seguridad.md",
+          "despliegues.md",
+          "api.md",
+          "datos.md",
+          "incidentes.md"
+        ]
+      },
+      {
+        "id": "q5",
+        "tipo": "conceptual",
+        "recall": 1.0,
+        "precision": 0.4,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "onboarding.md",
+          "despliegues.md",
+          "seguridad.md",
+          "incidentes.md",
+          "incidentes.md"
+        ]
+      }
+    ],
+    "hibrido": [
+      {
+        "id": "q1",
+        "tipo": "conceptual",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "incidentes.md",
+          "seguridad.md",
+          "monitoreo.md",
+          "despliegues.md",
+          "despliegues.md"
+        ]
+      },
+      {
+        "id": "q2",
+        "tipo": "termino_exacto",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.2,
+        "posicion": 1,
+        "recuperados": [
+          "monitoreo.md",
+          "incidentes.md",
+          "despliegues.md",
+          "arquitectura.md",
+          "api.md"
+        ]
+      },
+      {
+        "id": "q3",
+        "tipo": "termino_exacto",
+        "recall": 1.0,
+        "precision": 0.2,
+        "precision_maxima": 0.2,
+        "posicion": 1,
+        "recuperados": [
+          "datos.md",
+          "incidentes.md",
+          "despliegues.md",
+          "arquitectura.md",
+          "onboarding.md"
+        ]
+      },
+      {
+        "id": "q4",
+        "tipo": "parafrasis",
+        "recall": 1.0,
+        "precision": 0.4,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "despliegues.md",
+          "seguridad.md",
+          "despliegues.md",
+          "api.md",
+          "api.md"
+        ]
+      },
+      {
+        "id": "q5",
+        "tipo": "conceptual",
+        "recall": 1.0,
+        "precision": 0.4,
+        "precision_maxima": 0.4,
+        "posicion": 1,
+        "recuperados": [
+          "onboarding.md",
+          "despliegues.md",
+          "seguridad.md",
+          "incidentes.md",
+          "despliegues.md"
+        ]
+      }
+    ]
+  }
+}
