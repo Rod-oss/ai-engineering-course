@@ -1,0 +1,8 @@
+# Dependencias para desarrollo, pruebas y scripts (se instalan en tu entorno, no en la imagen).
+-r requirements.txt
+arize-phoenix-client==3.8.0
+httpx==0.28.1
+pandas==3.1.1
+pytest==9.2.0
+python-dotenv==1.2.4
+ruff==0.17.6

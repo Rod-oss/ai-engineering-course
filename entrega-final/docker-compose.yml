@@ -1,0 +1,48 @@
+# Sistema completo: API + Redis + Phoenix.  Un solo comando:  docker compose up --build -d  (o ./run.sh)
+name: kestrel-intelligence
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      # Las claves llegan del entorno (secrets de Codespaces) o del archivo .env; nunca del código.
+      GEMINI_API_KEY: ${GEMINI_API_KEY:?Falta GEMINI_API_KEY (secret de Codespaces o línea en .env)}
+      PINECONE_API_KEY: ${PINECONE_API_KEY:?Falta PINECONE_API_KEY (secret de Codespaces o línea en .env)}
+      # Dentro de la red de Docker, los servicios se encuentran por su nombre.
+      REDIS_URL: redis://redis:6379
+      PHOENIX_ENDPOINT: http://phoenix:6006/v1/traces
+    depends_on:
+      redis:
+        condition: service_healthy
+      phoenix:
+        condition: service_started
+    restart: unless-stopped
+
+  redis:
+    image: redis:8  # incluye los módulos de búsqueda y JSON que necesita el checkpointer de LangGraph
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]  # persiste jobs y checkpoints en disco
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    ports:
+      - "6006:6006"
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+      PHOENIX_ENABLE_AUTH: "false"  # solo para desarrollo local; en producción se usa una API key
+    volumes:
+      - phoenix-data:/mnt/data
+
+volumes:
+  redis-data:
+  phoenix-data:
