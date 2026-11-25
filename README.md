@@ -7,7 +7,7 @@ Repositorio con las actividades del curso de AI Engineering. Cada entrega vive e
 | # | Entrega | Tema | Estado |
 |---|---|---|---|
 | 1 | [Pre-entrega 1](pre-entrega-01/) | Cliente de LLM robusto y asíncrono | Completada |
-| 2 | [Pre-entrega 2](pre-entrega-02/) | Pipeline de procesamiento validado | Pendiente |
+| 2 | [Pre-entrega 2](pre-entrega-02/) | Pipeline de procesamiento validado | Completada |
 | 3 | [Pre-entrega 3](pre-entrega-03/) | Sistema de recuperación semántica local (RAG) | Pendiente |
 | 4 | [Pre-entrega 4](pre-entrega-04/) | Sistema RAG escalable en la nube con Pinecone | Pendiente |
 | 5 | [Pre-entrega 5](pre-entrega-05/) | Agente de razonamiento cíclico con memoria persistente | Pendiente |
