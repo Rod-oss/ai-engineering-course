@@ -239,7 +239,65 @@ Los resultados se guardan en `resultados/` y las capturas en `screenshots/`.
 
 ## Resultados
 
-<!-- Se completa con los resultados reales de las pruebas del sistema. -->
+Pruebas ejecutadas el 25 de noviembre de 2026 en GitHub Codespaces, con el nivel gratuito de Gemini (`gemini-3.5-flash-lite`), un limitador de 12 llamadas por minuto y 2 jobs en paralelo.
+
+### Prueba de carga: 5 solicitudes concurrentes
+
+Archivos: `resultados/carga.json` y `resultados/metricas_phoenix.json`.
+
+| Métrica | Valor | Fuente |
+|---|---|---|
+| Completadas | 5 de 5 (2 con aprobación HITL, 0 fallidas) | `load_test.py` |
+| Respuesta de `POST /tasks` (p50 / p95) | 59,1 ms / 63,3 ms | `load_test.py` |
+| Latencia de extremo a extremo (p50 / p95 / máx.) | 264,91 s / **311,2 s** / 319,02 s | `load_test.py` |
+| Latencia de procesamiento (p50 / p95 / máx.) | 110,62 s / **179,97 s** / 191,07 s | Trazas de Phoenix |
+| Llamadas al LLM | 43 (de 8 a 9 por job) | Trazas de Phoenix |
+| Costo por ejecución (promedio / p95 / máx.) | **0,004394 USD** / 0,004933 USD / 0,005027 USD | Trazas de Phoenix |
+| Costo total de la prueba | 0,021972 USD | Trazas de Phoenix |
+
+- **Los endpoints son asíncronos:** `POST /tasks` responde en milisegundos aunque cada job tarde minutos.
+- **La latencia de extremo a extremo incluye la espera en cola.** Con 5 jobs, 2 en paralelo y un límite compartido de llamadas, el job `50a2668c` se procesó en 72 s pero esperó unos 247 s su turno.
+- **El costo es una estimación** con los tokens registrados en las trazas y los precios del nivel de pago. El costo real en el nivel gratuito fue 0.
+- **Resiliencia observada en vivo:** durante la prueba, Gemini devolvió un error transitorio (`GoogleAPIError`) en el job `636154df`. El worker lo devolvió a `PENDING` y lo retomó 20 s después desde su último checkpoint. Por eso ese job tiene 3 trazas (`job.iniciar`, `job.continuar` y `job.reanudar`) y aun así terminó en `DONE`.
+
+### Prueba de persistencia ante reinicios
+
+Archivo: `resultados/reinicio.json`.
+
+| Escenario | Antes del reinicio | API disponible en | Después del reinicio |
+|---|---|---|---|
+| Pausa HITL (job `012f8c40`) | `AWAITING_APPROVAL`, pausado en el nodo `aprobacion` | 7,1 s | El checkpoint seguía en `aprobacion` con las decisiones `investigador`, `analista` y `sintesis`. Se aprobó y terminó en `DONE` (auditoría `8d27050e92e2`) |
+| A mitad del grafo (job `d68f8cab`) | `RUNNING`, solo el investigador había terminado | 5,2 s | El worker lo recuperó al arrancar (`Jobs recuperados tras el arranque: 1`), siguió con analista y síntesis sin repetir al investigador y terminó en `DONE` |
+
+### Pruebas automáticas
+
+34 pruebas pasan y `ruff check .` no reporta errores.
+
+### Capturas
+
+**Prueba de carga:**
+
+![Prueba de carga](screenshots/01_prueba_carga.png)
+
+**Prueba de reinicio y logs de recuperación:**
+
+![Prueba de reinicio](screenshots/02_prueba_reinicio.png)
+
+**Latencia p95 y costo por ejecución calculados desde las trazas de Phoenix:**
+
+![Métricas de p95 y costo](screenshots/03_metricas_p95_costo.png)
+
+**Trazas de los jobs en Phoenix:**
+
+![Trazas en Phoenix](screenshots/04_trazas_phoenix.png)
+
+**Detalle de una traza (nodos del grafo, llamadas al LLM y herramientas):**
+
+![Detalle de una traza](screenshots/05_traza_detalle.png)
+
+**Sesión de un job con reintento y aprobación (3 trazas agrupadas por `session.id`):**
+
+![Sesión en Phoenix](screenshots/06_sesion_phoenix.png)
 
 ## Configuración
 

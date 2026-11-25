@@ -1,0 +1,58 @@
+{
+  "fecha_utc": "2026-11-25T16:16:19+00:00",
+  "hitl": {
+    "job_id": "012f8c40e2994cf9bdf15c157ea8e12a",
+    "aplica": true,
+    "reinicio_s": 7.1,
+    "checkpoint_antes": {
+      "checkpoint_id": "1f1e8eba-fb15-601d-8006-4b5f539e23b3",
+      "siguiente_nodo": [
+        "aprobacion"
+      ],
+      "pasos_supervisor": 3,
+      "decisiones": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "contribuciones": [
+        "investigador",
+        "analista"
+      ],
+      "accion_critica": "revertir_despliegue"
+    },
+    "checkpoint_despues": {
+      "checkpoint_id": "1f1e8eba-fb15-601d-8006-4b5f539e23b3",
+      "siguiente_nodo": [
+        "aprobacion"
+      ],
+      "pasos_supervisor": 3,
+      "decisiones": [
+        "investigador",
+        "analista",
+        "sintesis"
+      ],
+      "contribuciones": [
+        "investigador",
+        "analista"
+      ],
+      "accion_critica": "revertir_despliegue"
+    },
+    "mismo_checkpoint": true,
+    "estado_final": "DONE",
+    "resultado_accion": "Acción 'revertir_despliegue' APROBADA y ejecutada (simulada). Registro de auditoría: 8d27050e92e2"
+  },
+  "mitad_del_grafo": {
+    "job_id": "d68f8cab5d45414887f8e5a7312f6905",
+    "reinicio_s": 5.2,
+    "decisiones_antes_del_reinicio": [
+      "investigador"
+    ],
+    "flujo_final": [
+      "investigador",
+      "analista",
+      "sintesis"
+    ],
+    "estado_final": "DONE"
+  }
+}
